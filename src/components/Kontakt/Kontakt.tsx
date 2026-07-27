@@ -59,6 +59,17 @@ export default function Kontakt() {
               </motion.div>
             ))}
           </div>
+
+          <p className="mt-8 max-w-sm text-sm text-muted">
+            Lieber direkt schreiben? Erreichbar unter{" "}
+            <a
+              href="mailto:kontakt@karivo.website"
+              className="font-medium text-ink transition-colors hover:text-ink/70"
+            >
+              kontakt@karivo.website
+            </a>
+            .
+          </p>
         </motion.div>
 
         <motion.div

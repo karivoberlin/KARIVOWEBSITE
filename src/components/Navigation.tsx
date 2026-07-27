@@ -7,6 +7,7 @@ const LINKS = [
   { label: "Ablauf", href: "#ablauf" },
   { label: "Pakete", href: "#pakete" },
   { label: "Care", href: "#care" },
+  { label: "Kontakt", href: "#kontakt" },
 ];
 
 export default function Navigation() {
