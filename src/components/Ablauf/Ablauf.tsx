@@ -4,26 +4,14 @@ import { useRef } from "react";
 import type { MotionValue } from "framer-motion";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import AblaufBackground from "./AblaufBackground";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const STEPS = [
-  { n: "01", title: "Kurz anfragen", text: "Du schickst Branche, Wunschpaket und grobe Vorstellungen." },
-  {
-    n: "02",
-    title: "Struktur festlegen",
-    text: "KARIVO plant Aufbau, Inhalte, Kontaktwege und den passenden Stil.",
-  },
-  { n: "03", title: "Premium-Auftritt bauen", text: "Design, Texte, Animationen und Technik werden sauber umgesetzt." },
-  {
-    n: "04",
-    title: "Live gehen",
-    text: "Die Website geht online und kann danach mit Care aktuell gehalten werden.",
-  },
-];
-
 export default function Ablauf() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
+  const STEPS = t.ablauf.steps;
   // The line draws itself as the visitor scrolls through the section, and
   // whichever step the progress currently sits inside gets a brief lift —
   // a timeline you travel along, not four cards that all appear at once.
@@ -40,11 +28,11 @@ export default function Ablauf() {
           transition={{ duration: 0.9, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">Ablauf</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{t.ablauf.eyebrow}</p>
           <h2 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[3rem] lg:text-[3.25rem]">
-            Einfacher Prozess.
+            {t.ablauf.titleLines[0]}
             <br />
-            Hochwertiges Ergebnis.
+            {t.ablauf.titleLines[1]}
           </h2>
         </motion.div>
 
@@ -57,7 +45,7 @@ export default function Ablauf() {
           />
           <div className="grid grid-cols-4 gap-8">
             {STEPS.map((step, i) => (
-              <TimelineStep key={step.n} {...step} index={i} progress={scrollYProgress} />
+              <TimelineStep key={step.n} {...step} index={i} total={STEPS.length} progress={scrollYProgress} />
             ))}
           </div>
         </div>
@@ -96,17 +84,19 @@ function TimelineStep({
   title,
   text,
   index,
+  total,
   progress,
 }: {
   n: string;
   title: string;
   text: string;
   index: number;
+  total: number;
   progress: MotionValue<number>;
 }) {
   const reduceMotion = useReducedMotion();
-  const start = index / STEPS.length;
-  const end = start + 1 / STEPS.length;
+  const start = index / total;
+  const end = start + 1 / total;
   const activation = useTransform(progress, [start, end], [0, 1]);
   const nodeBg = useTransform(activation, [0, 1], ["rgba(255,255,255,0)", "#111111"]);
   const nodeBorder = useTransform(activation, [0, 1], ["rgba(0,0,0,0.15)", "rgba(0,0,0,0)"]);

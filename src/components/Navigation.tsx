@@ -2,16 +2,19 @@
 
 import { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
+import LanguageToggle from "@/components/LanguageToggle";
+import { useLanguage } from "@/context/LanguageContext";
 
-const LINKS = [
-  { label: "Ablauf", href: "#ablauf" },
-  { label: "Pakete", href: "#pakete" },
-  { label: "Care", href: "#care" },
-  { label: "Kontakt", href: "#kontakt" },
-];
+const NAV_ITEMS = [
+  { key: "ablauf", href: "#ablauf" },
+  { key: "pakete", href: "#pakete" },
+  { key: "care", href: "#care" },
+  { key: "kontakt", href: "#kontakt" },
+] as const;
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -32,21 +35,24 @@ export default function Navigation() {
         </a>
 
         <ul className="hidden items-center gap-9 lg:flex">
-          {LINKS.map((link) => (
-            <li key={link.href}>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.href}>
               <a
-                href={link.href}
+                href={item.href}
                 className="relative text-sm font-medium text-muted transition-colors hover:text-ink"
               >
-                {link.label}
+                {t.nav[item.key]}
               </a>
             </li>
           ))}
         </ul>
 
-        <Button href="#kontakt" icon={false} className="!px-5 !py-2.5 text-[0.82rem]">
-          Projekt starten
-        </Button>
+        <div className="flex items-center gap-3">
+          <LanguageToggle />
+          <Button href="#kontakt" icon={false} className="!px-5 !py-2.5 text-[0.82rem]">
+            {t.nav.cta}
+          </Button>
+        </div>
       </nav>
     </header>
   );

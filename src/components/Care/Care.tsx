@@ -3,34 +3,14 @@
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import CareBackground from "./CareBackground";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const PLANS = [
-  {
-    name: "Care",
-    price: "19 €/Monat",
-    text: "Für gelegentliche kleine Änderungen.",
-    features: ["1 kleine Änderung pro Monat", "Texte / Öffnungszeiten", "Basis-Pflege"],
-    highlight: false,
-  },
-  {
-    name: "Care+",
-    price: "39 €/Monat",
-    text: "Der beste Standard für die meisten lokalen Unternehmen.",
-    features: ["Bis zu 3 kleine Änderungen", "Bilder / Texte / Angebote", "Priorisierte Bearbeitung"],
-    highlight: true,
-  },
-  {
-    name: "Care Pro",
-    price: "69 €/Monat",
-    text: "Für Unternehmen, die dauerhaft aktiv und aktuell wirken wollen.",
-    features: ["Bis zu 6 Änderungen", "Aktionen / neue Bereiche", "Monatscheck"],
-    highlight: false,
-  },
-];
-
 export default function Care() {
+  const { t } = useLanguage();
+  const PLANS = t.care.plans;
+
   return (
     <section id="care" className="relative py-28 sm:py-36">
       <CareBackground />
@@ -42,15 +22,13 @@ export default function Care() {
           transition={{ duration: 0.9, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">Karivo Care</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{t.care.eyebrow}</p>
           <h2 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[3rem] lg:text-[3.25rem]">
-            Nach dem Launch bleibt
+            {t.care.titleLines[0]}
             <br />
-            deine Website gepflegt.
+            {t.care.titleLines[1]}
           </h2>
-          <p className="mt-6 max-w-xl text-[1.05rem] leading-[1.6] text-muted">
-            Das Website-Paket ist einmalig. Das Care-Paket ist die monatliche Betreuung danach.
-          </p>
+          <p className="mt-6 max-w-xl text-[1.05rem] leading-[1.6] text-muted">{t.care.text}</p>
         </motion.div>
 
         <motion.div
@@ -61,15 +39,19 @@ export default function Care() {
           className="mt-12 flex flex-wrap items-center gap-5 sm:mt-14"
         >
           <div className="rounded-2xl border border-black/[0.06] bg-white px-6 py-4">
-            <p className="text-[0.65rem] font-medium uppercase tracking-[0.16em] text-muted">Einmalig</p>
-            <p className="mt-1 text-[1.05rem] font-semibold text-ink">Website-Paket</p>
-            <p className="mt-0.5 text-sm text-muted">Starter, Premium oder Business</p>
+            <p className="text-[0.65rem] font-medium uppercase tracking-[0.16em] text-muted">
+              {t.care.comboCards.once.label}
+            </p>
+            <p className="mt-1 text-[1.05rem] font-semibold text-ink">{t.care.comboCards.once.title}</p>
+            <p className="mt-0.5 text-sm text-muted">{t.care.comboCards.once.text}</p>
           </div>
           <span className="text-xl text-black/25">+</span>
           <div className="rounded-2xl border border-black/[0.06] bg-white px-6 py-4">
-            <p className="text-[0.65rem] font-medium uppercase tracking-[0.16em] text-muted">Monatlich</p>
-            <p className="mt-1 text-[1.05rem] font-semibold text-ink">Care-Paket</p>
-            <p className="mt-0.5 text-sm text-muted">Care, Care+ oder Care Pro</p>
+            <p className="text-[0.65rem] font-medium uppercase tracking-[0.16em] text-muted">
+              {t.care.comboCards.monthly.label}
+            </p>
+            <p className="mt-1 text-[1.05rem] font-semibold text-ink">{t.care.comboCards.monthly.title}</p>
+            <p className="mt-0.5 text-sm text-muted">{t.care.comboCards.monthly.text}</p>
           </div>
         </motion.div>
 
@@ -89,7 +71,7 @@ export default function Care() {
             >
               {plan.highlight && (
                 <span className="absolute -top-3 left-10 rounded-full bg-ink px-3 py-1 text-[0.68rem] font-medium tracking-wide text-bg">
-                  Empfohlen
+                  {t.care.recommended}
                 </span>
               )}
 
@@ -112,7 +94,7 @@ export default function Care() {
                 icon={false}
                 className="mt-9 w-full justify-center"
               >
-                Care anfragen
+                {t.care.cta}
               </Button>
             </motion.div>
           ))}
@@ -126,14 +108,12 @@ export default function Care() {
           className="mt-8 flex flex-col items-start justify-between gap-6 rounded-[2rem] border border-black/[0.06] bg-white px-8 py-8 sm:mt-10 sm:flex-row sm:items-center sm:px-10"
         >
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">Beliebte Kombination</p>
-            <p className="mt-2 text-[1.2rem] font-semibold tracking-tight text-ink">Premium Website + Care+</p>
-            <p className="mt-1 text-[0.95rem] text-muted">
-              Einmalig 599 € für die Website und 39 €/Monat für laufende Pflege.
-            </p>
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">{t.care.combo.eyebrow}</p>
+            <p className="mt-2 text-[1.2rem] font-semibold tracking-tight text-ink">{t.care.combo.title}</p>
+            <p className="mt-1 text-[0.95rem] text-muted">{t.care.combo.text}</p>
           </div>
           <Button href="#kontakt" icon={false} className="shrink-0">
-            Diese Kombination anfragen
+            {t.care.combo.cta}
           </Button>
         </motion.div>
       </div>

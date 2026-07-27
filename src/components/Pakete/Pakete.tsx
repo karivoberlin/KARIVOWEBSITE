@@ -3,34 +3,14 @@
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import PaketeBackground from "./PaketeBackground";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const PLANS = [
-  {
-    name: "Starter",
-    price: "ab 349 €",
-    text: "Für einen schnellen, sauberen Online-Auftritt mit den wichtigsten Informationen.",
-    features: ["Onepage", "Kontaktbereich", "Mobile Ansicht"],
-    popular: false,
-  },
-  {
-    name: "Premium",
-    price: "ab 599 €",
-    text: "Für Betriebe, die mehr Vertrauen, bessere Struktur und stärkere Wirkung brauchen.",
-    features: ["Bis zu 5 Seiten", "Galerie / Leistungen", "SEO-Grundstruktur"],
-    popular: true,
-  },
-  {
-    name: "Business",
-    price: "ab 899 €",
-    text: "Für einen individuellen Premium-Auftritt mit mehr Tiefe und stärkerem Design.",
-    features: ["Mehr Struktur", "Animationen", "Premium-Aufbau"],
-    popular: false,
-  },
-];
-
 export default function Pakete() {
+  const { t } = useLanguage();
+  const PLANS = t.pakete.plans;
+
   return (
     <section id="pakete" className="relative py-28 sm:py-36">
       <PaketeBackground />
@@ -43,20 +23,16 @@ export default function Pakete() {
           className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end"
         >
           <div className="max-w-xl">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">Website-Pakete</p>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{t.pakete.eyebrow}</p>
             <h2 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[3rem] lg:text-[3.25rem]">
-              Klare Pakete.
+              {t.pakete.titleLines[0]}
               <br />
-              Professioneller Auftritt.
+              {t.pakete.titleLines[1]}
             </h2>
-            <p className="mt-6 text-[1.05rem] leading-[1.6] text-muted">
-              Wähle das Paket, das zu deinem Unternehmen passt – von schneller Onepage bis zum individuellen
-              Premium-Aufbau.
-            </p>
+            <p className="mt-6 text-[1.05rem] leading-[1.6] text-muted">{t.pakete.text}</p>
           </div>
           <p className="max-w-[220px] text-sm leading-[1.6] text-muted">
-            <span className="font-medium text-ink">Transparent.</span> Alle Pakete sind einmalige Aufbaupreise. Domain,
-            Texte, Bilder und Betreuung können je nach Projekt ergänzt werden.
+            <span className="font-medium text-ink">{t.pakete.note.bold}</span> {t.pakete.note.text}
           </p>
         </motion.div>
 
@@ -76,7 +52,7 @@ export default function Pakete() {
             >
               {plan.popular && (
                 <span className="absolute -top-3 left-11 rounded-full bg-ink px-3 py-1 text-[0.68rem] font-medium tracking-wide text-bg lg:left-14">
-                  Empfohlen
+                  {t.pakete.recommended}
                 </span>
               )}
 
@@ -112,7 +88,7 @@ export default function Pakete() {
                 icon={false}
                 className="mt-9 w-full justify-center transition-transform duration-300 group-hover:scale-[1.02]"
               >
-                Paket anfragen
+                {t.pakete.cta}
               </Button>
             </motion.div>
           ))}

@@ -4,29 +4,14 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiPlus } from "react-icons/hi2";
 import FAQBackground from "./FAQBackground";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const QUESTIONS = [
-  {
-    q: "Kann man Website und Care kombinieren?",
-    a: "Ja. Das ist sogar der empfohlene Weg: einmaliger Aufbau + monatliche Betreuung.",
-  },
-  {
-    q: "Kann ich auch ohne Care buchen?",
-    a: "Ja. Care ist optional, aber sinnvoll, wenn Inhalte regelmäßig aktuell bleiben sollen.",
-  },
-  {
-    q: "Für wen ist Premium am besten?",
-    a: "Premium passt meistens am besten, weil genug Platz für Vertrauen, Bilder, Leistungen und Kontaktwege da ist.",
-  },
-  {
-    q: "Was ist, wenn ich noch keine guten Bilder habe?",
-    a: "Dann kann die Seite erstmal mit sauberem Aufbau, passenden Platzhaltern und später mit echten Bildern erweitert werden.",
-  },
-];
-
 export default function FAQ() {
+  const { t } = useLanguage();
+  const QUESTIONS = t.faq.questions;
+
   return (
     <section id="faq" className="relative py-28 sm:py-36">
       <FAQBackground />
@@ -38,15 +23,13 @@ export default function FAQ() {
           transition={{ duration: 0.9, ease: EASE }}
           className="lg:sticky lg:top-32 lg:self-start"
         >
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">FAQ</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{t.faq.eyebrow}</p>
           <h2 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[3rem]">
-            Wichtige Fragen
+            {t.faq.titleLines[0]}
             <br />
-            vor der Anfrage.
+            {t.faq.titleLines[1]}
           </h2>
-          <p className="mt-6 max-w-sm text-[1.05rem] leading-[1.6] text-muted">
-            Am schnellsten geht es, wenn du direkt fragst — aber die häufigsten Punkte klären wir hier schon vorab.
-          </p>
+          <p className="mt-6 max-w-sm text-[1.05rem] leading-[1.6] text-muted">{t.faq.text}</p>
         </motion.div>
 
         <div className="border-t border-black/[0.06]">

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 type Variant = "restaurant" | "fahrschule" | "fitness";
 type Scale = "lg" | "md" | "sm";
@@ -82,6 +83,9 @@ function MiniHero({
 }
 
 export default function BrowserWindow({ variant, url, scale = "lg" }: BrowserWindowProps) {
+  const { t } = useLanguage();
+  const content = t.browserWindows[variant];
+
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-[1.1rem] border border-black/[0.06] bg-white shadow-[0_2px_6px_rgba(0,0,0,0.04)]">
       <div className="flex h-9 shrink-0 items-center gap-1.5 border-b border-black/[0.05] bg-[#fbfbfa] px-4">
@@ -104,12 +108,12 @@ export default function BrowserWindow({ variant, url, scale = "lg" }: BrowserWin
             background={
               <PhotoBg src="/restauraunt.png" alt="Restaurant Locanda" position="object-[50%_38%]" eager highPriority />
             }
-            logo="Locanda"
-            navLinks={["Speisekarte", "Über uns", "Reservierung"]}
-            headline={["Italienische Küche.", "Modern interpretiert."]}
-            text="Frische Zutaten, handgemachte Pasta und ein Ambiente, das zum Verweilen einlädt."
-            primary="Tisch reservieren"
-            secondary="Speisekarte ansehen"
+            logo={content.logo}
+            navLinks={content.navLinks as [string, string, string]}
+            headline={content.headline as [string, string]}
+            text={content.text}
+            primary={content.primary}
+            secondary={content.secondary}
           />
         )}
         {variant === "fahrschule" && (
@@ -117,12 +121,12 @@ export default function BrowserWindow({ variant, url, scale = "lg" }: BrowserWin
             scale={scale}
             dark
             background={<PhotoBg src="/Fahrschule.png" alt="Drive Academy Fahrschule" position="object-[82%_42%]" eager />}
-            logo="Drive Academy"
-            navLinks={["Führerschein", "Preise", "Kontakt"]}
-            headline={["Dein Führerschein.", "Ohne Umwege."]}
-            text="Moderne Ausbildung, flexible Termine und erfahrene Fahrlehrer für deinen schnellen Erfolg."
-            primary="Jetzt starten"
-            secondary="Beratung buchen"
+            logo={content.logo}
+            navLinks={content.navLinks as [string, string, string]}
+            headline={content.headline as [string, string]}
+            text={content.text}
+            primary={content.primary}
+            secondary={content.secondary}
           />
         )}
         {variant === "fitness" && (
@@ -130,12 +134,12 @@ export default function BrowserWindow({ variant, url, scale = "lg" }: BrowserWin
             scale={scale}
             dark
             background={<PhotoBg src="/fitnessstudio.png" alt="Momentum Fitnessstudio" position="object-[32%_48%]" eager />}
-            logo="Momentum"
-            navLinks={["Mitgliedschaft", "Kurse", "Kontakt"]}
-            headline={["Train smarter.", "Feel stronger."]}
-            text="Modernes Equipment, persönliche Betreuung und eine Atmosphäre, die motiviert."
-            primary="Probetraining"
-            secondary="Mitglied werden"
+            logo={content.logo}
+            navLinks={content.navLinks as [string, string, string]}
+            headline={content.headline as [string, string]}
+            text={content.text}
+            primary={content.primary}
+            secondary={content.secondary}
           />
         )}
       </div>

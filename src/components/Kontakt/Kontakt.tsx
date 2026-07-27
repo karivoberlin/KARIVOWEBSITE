@@ -5,24 +5,18 @@ import type { FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiOutlineCheckCircle, HiOutlineExclamationCircle } from "react-icons/hi2";
 import KontaktBackground from "./KontaktBackground";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mdaqywge";
 
-const TRUST = [
-  { n: "01", label: "Kostenlose Ersteinschätzung" },
-  { n: "02", label: "Antwort innerhalb von 24 Stunden" },
-  { n: "03", label: "Persönlicher Ansprechpartner" },
-  { n: "04", label: "Keine Verpflichtung" },
-];
-
-const PAKET = ["Starter · 349 €", "Premium · 599 €", "Business · 899 €", "Noch unsicher"];
-const CARE = ["Care · 19 €/Monat", "Care+ · 39 €/Monat", "Care Pro · 69 €/Monat", "Keine Betreuung", "Noch unsicher"];
-
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function Kontakt() {
+  const { t } = useLanguage();
+  const TRUST = t.kontakt.trust;
+
   return (
     <section id="kontakt" className="relative py-28 sm:py-36">
       <KontaktBackground />
@@ -33,16 +27,13 @@ export default function Kontakt() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">Kontakt</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{t.kontakt.eyebrow}</p>
           <h2 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[3rem]">
-            Kostenlose
+            {t.kontakt.titleLines[0]}
             <br />
-            Ersteinschätzung sichern.
+            {t.kontakt.titleLines[1]}
           </h2>
-          <p className="mt-6 max-w-md text-[1.05rem] leading-[1.6] text-muted">
-            Schick kurz ein paar Eckdaten zu deinem Unternehmen. Danach bekommst du eine klare Empfehlung, welches
-            Paket wirklich Sinn macht.
-          </p>
+          <p className="mt-6 max-w-md text-[1.05rem] leading-[1.6] text-muted">{t.kontakt.text}</p>
 
           <div className="mt-12 max-w-sm">
             {TRUST.map((item, i) => (
@@ -61,14 +52,14 @@ export default function Kontakt() {
           </div>
 
           <p className="mt-8 max-w-sm text-sm text-muted">
-            Lieber direkt schreiben? Erreichbar unter{" "}
+            {t.kontakt.emailPrompt.before}{" "}
             <a
               href="mailto:kontakt@karivo.website"
               className="font-medium text-ink transition-colors hover:text-ink/70"
             >
               kontakt@karivo.website
             </a>
-            .
+            {t.kontakt.emailPrompt.after}
           </p>
         </motion.div>
 
@@ -98,6 +89,8 @@ interface FormState {
 const EMPTY_FORM: FormState = { name: "", email: "", phone: "", branche: "", message: "" };
 
 function ContactForm() {
+  const { t } = useLanguage();
+  const copy = t.kontakt.form;
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [paket, setPaket] = useState<string | null>(null);
   const [care, setCare] = useState<string | null>(null);
@@ -112,9 +105,9 @@ function ContactForm() {
     e.preventDefault();
 
     const nextErrors: typeof errors = {};
-    if (!form.name.trim()) nextErrors.name = "Bitte trag deinen Namen ein.";
-    if (!form.email.trim()) nextErrors.email = "Bitte trag deine E-Mail ein.";
-    else if (!EMAIL_RE.test(form.email)) nextErrors.email = "Das sieht nicht nach einer gültigen E-Mail aus.";
+    if (!form.name.trim()) nextErrors.name = copy.errors.name;
+    if (!form.email.trim()) nextErrors.email = copy.errors.email;
+    else if (!EMAIL_RE.test(form.email)) nextErrors.email = copy.errors.emailInvalid;
 
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
@@ -153,16 +146,16 @@ function ContactForm() {
             className="flex flex-col items-center px-8 py-20 text-center sm:px-10"
           >
             <HiOutlineCheckCircle className="h-10 w-10 text-ink" strokeWidth={1.3} />
-            <h3 className="mt-5 text-[1.3rem] font-semibold tracking-tight text-ink">Anfrage angekommen.</h3>
+            <h3 className="mt-5 text-[1.3rem] font-semibold tracking-tight text-ink">{copy.successTitle}</h3>
             <p className="mt-2 max-w-xs text-[0.95rem] leading-[1.6] text-muted">
-              Danke, {form.name.split(" ")[0]}. Wir melden uns in der Regel innerhalb eines Werktags bei dir.
+              {copy.successText(form.name.split(" ")[0])}
             </p>
             <button
               type="button"
               onClick={reset}
               className="mt-8 text-[0.85rem] font-medium text-ink underline decoration-black/20 underline-offset-4 transition-colors hover:decoration-black/50"
             >
-              Neue Anfrage senden
+              {copy.resetCta}
             </button>
           </motion.div>
         ) : (
@@ -179,7 +172,7 @@ function ContactForm() {
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Field
                 id="name"
-                label="Name"
+                label={copy.nameLabel}
                 required
                 value={form.name}
                 onChange={(v) => update("name", v)}
@@ -188,7 +181,7 @@ function ContactForm() {
               />
               <Field
                 id="email"
-                label="E-Mail"
+                label={copy.emailLabel}
                 type="email"
                 required
                 value={form.email}
@@ -198,7 +191,7 @@ function ContactForm() {
               />
               <Field
                 id="phone"
-                label="Telefon (optional)"
+                label={copy.phoneLabel}
                 type="tel"
                 value={form.phone}
                 onChange={(v) => update("phone", v)}
@@ -206,10 +199,10 @@ function ContactForm() {
               />
               <Field
                 id="branche"
-                label="Unternehmen / Branche"
+                label={copy.brancheLabel}
                 value={form.branche}
                 onChange={(v) => update("branche", v)}
-                placeholder="z. B. Café, Praxis, Onlineshop …"
+                placeholder={copy.branchePlaceholder}
               />
             </div>
 
@@ -218,7 +211,7 @@ function ContactForm() {
                 htmlFor="message"
                 className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-muted transition-colors duration-300 group-focus-within:text-ink"
               >
-                Nachricht (optional)
+                {copy.messageLabel}
               </label>
               <textarea
                 id="message"
@@ -226,13 +219,25 @@ function ContactForm() {
                 rows={3}
                 value={form.message}
                 onChange={(e) => update("message", e.target.value)}
-                placeholder="Was sollten wir vorab wissen?"
+                placeholder={copy.messagePlaceholder}
                 className="mt-3 w-full resize-none rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[0.95rem] text-ink placeholder:text-black/30 placeholder:transition-opacity placeholder:duration-300 transition-all duration-300 focus:border-black/25 focus:placeholder:opacity-50 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.04)] focus:outline-none"
               />
             </div>
 
-            <ChoiceGroup label="Paket-Interesse" options={PAKET} value={paket} onChange={setPaket} className="mt-8" />
-            <ChoiceGroup label="Care-Interesse" options={CARE} value={care} onChange={setCare} className="mt-8" />
+            <ChoiceGroup
+              label={copy.paketGroupLabel}
+              options={copy.paketOptions}
+              value={paket}
+              onChange={setPaket}
+              className="mt-8"
+            />
+            <ChoiceGroup
+              label={copy.careGroupLabel}
+              options={copy.careOptions}
+              value={care}
+              onChange={setCare}
+              className="mt-8"
+            />
 
             <input type="hidden" name="paket_interesse" value={paket ?? ""} />
             <input type="hidden" name="care_interesse" value={care ?? ""} />
@@ -246,15 +251,15 @@ function ContactForm() {
               {status === "submitting" && (
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-bg/30 border-t-bg" />
               )}
-              {status === "submitting" ? "Wird gesendet …" : "Kostenlose Anfrage senden"}
+              {status === "submitting" ? copy.submitting : copy.submit}
             </button>
             {status === "error" ? (
               <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-xs text-red-500">
                 <HiOutlineExclamationCircle className="h-4 w-4 shrink-0" />
-                Senden hat nicht geklappt. Bitte versuch es gleich noch einmal.
+                {copy.errorMessage}
               </p>
             ) : (
-              <p className="mt-4 text-center text-xs text-muted">Deine Anfrage wird sicher an KARIVO gesendet.</p>
+              <p className="mt-4 text-center text-xs text-muted">{copy.secureNote}</p>
             )}
           </motion.form>
         )}
