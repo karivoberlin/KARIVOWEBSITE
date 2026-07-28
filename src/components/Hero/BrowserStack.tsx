@@ -124,6 +124,7 @@ export default function BrowserStack({ scrollTargetRef }: BrowserStackProps) {
         >
           <motion.div
             className="h-full w-full"
+            style={{ willChange: "transform" }}
             animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
             transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
           >
@@ -140,6 +141,7 @@ export default function BrowserStack({ scrollTargetRef }: BrowserStackProps) {
         >
           <motion.div
             className="h-full w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.28)]"
+            style={{ willChange: "transform" }}
             animate={reduceMotion ? undefined : { y: [0, 12, 0] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           >
@@ -156,6 +158,7 @@ export default function BrowserStack({ scrollTargetRef }: BrowserStackProps) {
         >
           <motion.div
             className="h-full w-full drop-shadow-[0_40px_80px_rgba(0,0,0,0.14)]"
+            style={{ willChange: "transform" }}
             animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
           >
