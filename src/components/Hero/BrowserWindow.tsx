@@ -166,7 +166,7 @@ function PhotoBg({
         src={src}
         alt={alt}
         fill
-        sizes="640px"
+        sizes="(max-width: 640px) 60vw, (max-width: 1024px) 380px, 420px"
         loading={eager ? "eager" : undefined}
         fetchPriority={highPriority ? "high" : undefined}
         className={`object-cover ${position}`}

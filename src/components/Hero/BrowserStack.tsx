@@ -23,6 +23,9 @@ export default function BrowserStack({ scrollTargetRef }: BrowserStackProps) {
   const tiltY = useSpring(pointerX, { stiffness: 120, damping: 20, mass: 0.6 });
 
   function handlePointerMove(e: PointerEvent<HTMLDivElement>) {
+    // Touch/pen drags shouldn't drive the 3D tilt — there's no hover intent
+    // behind a finger crossing the cards while scrolling.
+    if (e.pointerType !== "mouse") return;
     const rect = zoneRef.current?.getBoundingClientRect();
     if (!rect) return;
     const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);

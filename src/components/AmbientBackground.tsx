@@ -40,9 +40,12 @@ export default function AmbientBackground() {
         style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 38%)" }}
       />
 
-      {/* Cursor reaction — felt as a faint warmth, not a visible spotlight */}
+      {/* Cursor reaction — felt as a faint warmth, not a visible spotlight.
+          Hidden on touch devices via CSS: there's no cursor to react to, and
+          it's otherwise a permanently-mounted blurred layer costing GPU time
+          for nothing. */}
       <motion.div
-        className="absolute h-[820px] w-[820px] rounded-full blur-[160px]"
+        className="ambient-spotlight absolute h-[820px] w-[820px] rounded-full blur-[160px]"
         style={{
           left: spotX,
           top: spotY,
