@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ExampleSite from "@/components/Beispiele/ExampleSite";
 import type { ExampleSlug } from "@/components/Beispiele/ExampleSite";
+import LocandaSite from "@/components/Beispiele/LocandaSite";
 
 const SLUGS: ExampleSlug[] = ["restaurant", "fahrschule", "fitness"];
 
@@ -41,6 +42,8 @@ export async function generateMetadata({
 export default async function ExamplePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   if (!isExampleSlug(slug)) notFound();
+
+  if (slug === "restaurant") return <LocandaSite />;
 
   return <ExampleSite slug={slug} />;
 }

@@ -17,9 +17,7 @@ const PHOTO: Record<ExampleSlug, { src: string; position: string }> = {
   fitness: { src: "/fitnessstudio.png", position: "object-[32%_48%]" },
 };
 
-const VIDEO: Partial<Record<ExampleSlug, { src: string; poster: string }>> = {
-  restaurant: { src: "/videos/locanda-hero.mp4", poster: "/locanda-hero-poster.jpg" },
-};
+const VIDEO: Partial<Record<ExampleSlug, { src: string; poster: string }>> = {};
 
 export default function ExampleSite({ slug }: { slug: ExampleSlug }) {
   const { t } = useLanguage();
