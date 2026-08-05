@@ -2,8 +2,10 @@
 
 import { useRef } from "react";
 import type { PointerEvent, RefObject } from "react";
+import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import BrowserWindow from "./BrowserWindow";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface BrowserStackProps {
   scrollTargetRef: RefObject<HTMLElement | null>;
@@ -16,6 +18,7 @@ const HOVER_SPRING = { stiffness: 200, damping: 24, mass: 0.5 };
 export default function BrowserStack({ scrollTargetRef }: BrowserStackProps) {
   const zoneRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
+  const { t } = useLanguage();
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -128,7 +131,13 @@ export default function BrowserStack({ scrollTargetRef }: BrowserStackProps) {
             animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
             transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
           >
-            <BrowserWindow variant="fitness" url="momentum-fitness.de" scale="lg" />
+            <Link
+              href="/beispiele/fitness"
+              className="block h-full w-full"
+              aria-label={`${t.examples.viewLabel}: ${t.browserWindows.fitness.logo}`}
+            >
+              <BrowserWindow variant="fitness" url="momentum-fitness.de" scale="lg" />
+            </Link>
           </motion.div>
         </motion.div>
 
@@ -145,7 +154,13 @@ export default function BrowserStack({ scrollTargetRef }: BrowserStackProps) {
             animate={reduceMotion ? undefined : { y: [0, 12, 0] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           >
-            <BrowserWindow variant="fahrschule" url="drive-academy.de" scale="lg" />
+            <Link
+              href="/beispiele/fahrschule"
+              className="block h-full w-full"
+              aria-label={`${t.examples.viewLabel}: ${t.browserWindows.fahrschule.logo}`}
+            >
+              <BrowserWindow variant="fahrschule" url="drive-academy.de" scale="lg" />
+            </Link>
           </motion.div>
         </motion.div>
 
@@ -162,7 +177,13 @@ export default function BrowserStack({ scrollTargetRef }: BrowserStackProps) {
             animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
           >
-            <BrowserWindow variant="restaurant" url="locanda-berlin.de" scale="lg" />
+            <Link
+              href="/beispiele/restaurant"
+              className="block h-full w-full"
+              aria-label={`${t.examples.viewLabel}: ${t.browserWindows.restaurant.logo}`}
+            >
+              <BrowserWindow variant="restaurant" url="locanda-berlin.de" scale="lg" />
+            </Link>
           </motion.div>
         </motion.div>
       </motion.div>

@@ -38,6 +38,43 @@ const de = {
       secondary: "Mitglied werden",
     },
   },
+  examples: {
+    badge: "Beispiel-Website von Karivo",
+    back: "Zurück zu Karivo",
+    viewLabel: "Beispiel ansehen",
+    featuresTitle: "Was diese Website mitbringt",
+    ctaNote: "Eine Website wie diese für dein Unternehmen?",
+    restaurant: {
+      features: [
+        "Handgemachte Pasta, täglich frisch zubereitet",
+        "Regionale, saisonale Zutaten im Fokus",
+        "Tischreservierung in unter einer Minute",
+      ],
+      aboutTitle: "Über Locanda",
+      aboutText:
+        "Ein Beispiel dafür, wie ein Restaurant online genauso einladend wirken kann wie vor Ort — mit großen Bildern, klarer Speisekarten-Führung und einem Reservierungsweg, der nicht im Weg steht.",
+    },
+    fahrschule: {
+      features: [
+        "Moderne Fahrschulfahrzeuge mit aktueller Sicherheitstechnik",
+        "Terminvereinbarung flexibel online",
+        "Erfahrene, geduldige Fahrlehrer",
+      ],
+      aboutTitle: "Über Drive Academy",
+      aboutText:
+        "Ein Beispiel dafür, wie eine Fahrschule Vertrauen schafft, bevor der erste Kontakt überhaupt stattfindet — klare Preise, klarer Ablauf, klarer nächster Schritt.",
+    },
+    fitness: {
+      features: [
+        "Modernste Geräte und freie Gewichte",
+        "Kurse für jedes Level, von Einsteiger bis Fortgeschritten",
+        "Individuelle Trainingspläne mit persönlicher Betreuung",
+      ],
+      aboutTitle: "Über Momentum",
+      aboutText:
+        "Ein Beispiel dafür, wie ein Fitnessstudio online genauso viel Energie ausstrahlt wie im Studio selbst — direkt, motivierend und ohne Umwege zur Anmeldung.",
+    },
+  },
   ablauf: {
     eyebrow: "Ablauf",
     titleLines: ["Einfacher Prozess.", "Hochwertiges Ergebnis."],
@@ -245,6 +282,43 @@ const en: TranslationShape = {
       text: "Modern equipment, personal coaching, and an atmosphere that motivates.",
       primary: "Free trial",
       secondary: "Become a member",
+    },
+  },
+  examples: {
+    badge: "Example website by Karivo",
+    back: "Back to Karivo",
+    viewLabel: "View example",
+    featuresTitle: "What this website includes",
+    ctaNote: "Want a website like this for your business?",
+    restaurant: {
+      features: [
+        "Handmade pasta, made fresh every day",
+        "Regional, seasonal ingredients front and center",
+        "Table reservations in under a minute",
+      ],
+      aboutTitle: "About Locanda",
+      aboutText:
+        "An example of how a restaurant can feel just as inviting online as in person — large photography, a clear menu, and a reservation path that never gets in the way.",
+    },
+    fahrschule: {
+      features: [
+        "Modern driving-school vehicles with current safety tech",
+        "Flexible online scheduling",
+        "Experienced, patient instructors",
+      ],
+      aboutTitle: "About Drive Academy",
+      aboutText:
+        "An example of how a driving school builds trust before the first real contact even happens — clear pricing, a clear process, a clear next step.",
+    },
+    fitness: {
+      features: [
+        "State-of-the-art equipment and free weights",
+        "Classes for every level, from beginner to advanced",
+        "Personalized training plans with one-on-one coaching",
+      ],
+      aboutTitle: "About Momentum",
+      aboutText:
+        "An example of how a gym can feel just as energizing online as it does in person — direct, motivating, and with no detours to sign-up.",
     },
   },
   ablauf: {
